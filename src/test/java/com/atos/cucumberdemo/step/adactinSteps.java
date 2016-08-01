@@ -32,7 +32,7 @@ public class adactinSteps {
     private int no_rooms;
 
     public adactinSteps(SharedDriver webDriver) {
-        this.webDriver = webDriver; 
+        this.webDriver = webDriver;
         //this.driver = new driver;
     }
 
@@ -257,5 +257,14 @@ public class adactinSteps {
                 assertEquals(element.getAttribute("value").toLowerCase(), object.toString().toLowerCase());
             }
         }
+    }
+
+    @And("^Verify that final billed price is being calculated$")
+    public void Verify_that_final_billed_price_is_being_calculated() throws Throwable {
+        double GST = 1.1;
+        int price = (int) (125 * adults * no_rooms * GST);
+        WebElement element = webDriver.findElement(By.id("final_price_dis"));
+        assertEquals("AUD $ " + price + "", element.getAttribute("value"));
+        //System.out.println(element.getAttribute("value"));
     }
 }

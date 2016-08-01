@@ -40,8 +40,8 @@ Feature: TC-112
     And the day that I check out is "1" days from now
     Then The right hotel should be shown
 
-  Scenario: Under construction Verify that Final Billed Price is being calculated as (price-per-night*no-of-rooms*no-of-days
+  Scenario:Verify that Final Billed Price is being calculated
     Given I am on the Select Hotel page
     When I select the first hotel
     Then The "Book A Hotel" page should be shown
-    And The price should be the same as the previous screen
+    And Verify that final billed price is being calculated
