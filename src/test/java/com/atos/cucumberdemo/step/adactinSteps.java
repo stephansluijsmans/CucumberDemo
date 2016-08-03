@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -261,10 +262,31 @@ public class adactinSteps {
 
     @And("^Verify that final billed price is being calculated$")
     public void Verify_that_final_billed_price_is_being_calculated() throws Throwable {
+        WebElement element1 = webDriver.findElement(By.id("price_night_dis"));
+        String pricetext = element1.getAttribute("value").substring(6,9);
+        int price_night = Integer.parseInt(pricetext);
         double GST = 1.1;
-        int price = (int) (125 * adults * no_rooms * GST);
+        int price = (int) (price_night * adults * no_rooms * GST);
         WebElement element = webDriver.findElement(By.id("final_price_dis"));
         assertEquals("AUD $ " + price + "", element.getAttribute("value"));
         //System.out.println(element.getAttribute("value"));
     }
+    @And("^Verify that data is the same$")
+    public void Verify_that_data_is_the_same() throws Throwable {
+        WebElement hotel_name = webDriver.findElement(By.id("hotel_name_dis"));
+        assertEquals(hotel_name.getAttribute("value"), "Hotel Creek");
+        WebElement location_name = webDriver.findElement(By.id("location_dis"));
+        assertEquals(location_name.getAttribute("value"), "Sydney");
+        WebElement room_numbers = webDriver.findElement(By.id("room_num_dis"));
+        assertEquals(room_numbers.getAttribute("value"), "2 Room(s)");
+        WebElement total_days = webDriver.findElement(By.id("total_days_dis"));
+        assertEquals(total_days.getAttribute("value"), "1 Day(s)");
+        WebElement room_type = webDriver.findElement(By.id("room_type_dis"));
+        assertEquals(room_type.getAttribute("value"), "Standard");
+        WebElement price_per_night = webDriver.findElement(By.id("price_night_dis"));
+        assertEquals(price_per_night.getAttribute("value"), "AUD $ 125");
+        WebElement price_excl_gst = webDriver.findElement(By.id("total_price_dis"));
+        assertEquals(price_excl_gst.getAttribute("value"), "AUD $ 250");
+    }
+
 }
